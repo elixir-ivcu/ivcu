@@ -10,9 +10,9 @@ defmodule IVCU.Converter.CMDTest do
 
   describe "convert/3 defined via __using__/1" do
     test "applies the command to the input file with content" do
-      input_filename = filename()
+      input_filename = IVCU.File.random_filename()
       input_path = Path.join("/tmp", input_filename)
-      output_filename = filename()
+      output_filename = IVCU.File.random_filename()
       output_path = Path.join("/tmp", output_filename)
       File.write!(input_path, <<255, 255>>)
 
@@ -30,7 +30,7 @@ defmodule IVCU.Converter.CMDTest do
     end
 
     test "applies the command to an input file with content" do
-      output_filename = filename()
+      output_filename = IVCU.File.random_filename()
       output_path = Path.join("/tmp", output_filename)
 
       on_exit(fn ->
@@ -46,9 +46,9 @@ defmodule IVCU.Converter.CMDTest do
     end
 
     test "leaves :original file with a path without transformation" do
-      input_filename = filename()
+      input_filename = IVCU.File.random_filename()
       input_path = Path.join("/tmp", input_filename)
-      output_filename = filename()
+      output_filename = IVCU.File.random_filename()
       output_path = Path.join("/tmp", output_filename)
       File.write!(input_path, <<255, 255>>)
 
@@ -66,7 +66,7 @@ defmodule IVCU.Converter.CMDTest do
     end
 
     test "leaves :original file with content without transformation" do
-      output_filename = filename()
+      output_filename = IVCU.File.random_filename()
       output_path = Path.join("/tmp", output_filename)
 
       on_exit(fn ->
@@ -80,9 +80,5 @@ defmodule IVCU.Converter.CMDTest do
 
       assert <<255, 255>> = File.read!(output_path)
     end
-  end
-
-  defp filename do
-    "#{UUID.uuid4()}.bin"
   end
 end

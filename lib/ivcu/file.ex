@@ -71,17 +71,17 @@ defmodule IVCU.File do
 
   > #### Note {: .info}
   >
-  > This function puts random UUIDv4 `:filename` with no extension
+  > This function puts random `:filename` with no extension
   > into the file.
   """
   @spec from_content(binary) :: t
   def from_content(content) when is_binary(content) do
-    filename = UUID.uuid4()
+    filename = random_filename()
     %__MODULE__{filename: filename, content: content}
   end
 
   @doc """
-  Replaces `:filename` with UUIDv4 filename with no extension.
+  Replaces `:filename` with random filename with no extension.
 
   It's usefull when you need to override original filename to
   keep filenames unique.
@@ -99,7 +99,17 @@ defmodule IVCU.File do
   """
   def with_random_filename(%{filename: original_filename} = file) do
     extname = Path.extname(original_filename)
-    filename = "#{UUID.uuid4()}#{extname}"
+    filename = "#{random_filename()}#{extname}"
     %__MODULE__{file | filename: filename}
+  end
+
+  @doc """
+  Return random filename.
+  """
+  def random_filename do
+    16
+    |> :crypto.strong_rand_bytes()
+    |> Base.encode32()
+    |> String.replace("=", "")
   end
 end

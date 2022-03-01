@@ -15,15 +15,14 @@ defmodule IVCU.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger, :crypto]
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.28", only: :dev, runtime: false},
-      {:uuid, "~> 1.0"}
+      {:ex_doc, "~> 0.28", only: :dev, runtime: false}
     ]
   end
 

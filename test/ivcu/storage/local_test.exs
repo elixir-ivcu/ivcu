@@ -7,7 +7,7 @@ defmodule IVCU.Storage.LocalTest do
 
   describe "put/1 definded via __using__/1" do
     test "writes files with content" do
-      filename = filename()
+      filename = IVCU.File.random_filename()
       path = "./uploads/#{filename}"
       on_exit(fn -> File.rm!(path) end)
 
@@ -17,8 +17,8 @@ defmodule IVCU.Storage.LocalTest do
     end
 
     test "writes files with path" do
-      source_filename = filename()
-      filename = filename()
+      source_filename = IVCU.File.random_filename()
+      filename = IVCU.File.random_filename()
       source_path = "./uploads/#{source_filename}"
       File.write!(source_path, <<255, 255>>)
       path = "./uploads/#{filename}"
@@ -36,7 +36,7 @@ defmodule IVCU.Storage.LocalTest do
 
   describe "delete/1 definded via __using__/1" do
     test "deletes the file" do
-      filename = filename()
+      filename = IVCU.File.random_filename()
       path = "./uploads/#{filename}"
       File.write!(path, <<255, 255>>)
 
@@ -54,13 +54,9 @@ defmodule IVCU.Storage.LocalTest do
 
   describe "url/1 defined via __using__/1" do
     test "returns file path" do
-      filename = filename()
+      filename = IVCU.File.random_filename()
       file = %IVCU.File{filename: filename}
       assert Storage.url(file) == "./uploads/#{filename}"
     end
-  end
-
-  defp filename do
-    "#{UUID.uuid4()}.bin"
   end
 end

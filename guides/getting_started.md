@@ -8,7 +8,7 @@ dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:ivcu, "~> 0.1.0"}
+    {:ivcu, "~> 0.1.1"}
   ]
 end
 ```

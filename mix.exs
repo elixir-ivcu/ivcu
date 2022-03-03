@@ -8,6 +8,16 @@ defmodule IVCU.MixProject do
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      preferred_cli_env: [dialyzer: :test],
+
+      # Dialyzer.
+      dialyzer: [
+        plt_add_apps: [:mix],
+        remove_defaults: [:unknown]
+      ],
+
+      # Docs.
+      name: "IVCU",
       docs: docs()
     ]
   end
@@ -23,6 +33,7 @@ defmodule IVCU.MixProject do
   defp deps do
     [
       {:credo, "~> 1.6", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.0", only: :test, runtime: false},
       {:ex_doc, "~> 0.28", only: :dev, runtime: false}
     ]
   end

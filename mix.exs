@@ -39,6 +39,7 @@ defmodule IVCU.MixProject do
           IVCU.Converter,
           IVCU.Storage,
           IVCU.CollectionTraverser,
+          IVCU.CollectionTraverser.AsyncTraverser,
           IVCU.CollectionTraverser.SyncTraverser
         ],
         Errors: [

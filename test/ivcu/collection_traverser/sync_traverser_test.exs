@@ -1,5 +1,5 @@
 defmodule IVCU.CollectionTraverser.SyncTraverserTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   alias IVCU.CollectionTraverser.SyncTraverser
 

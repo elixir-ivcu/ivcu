@@ -20,6 +20,8 @@ defmodule IVCU do
 
   alias IVCU.File
 
+  @default_collection_traverser IVCU.CollectionTraverser.SyncTraverser
+
   @doc """
   Save the file with provided definition.
 
@@ -48,7 +50,14 @@ defmodule IVCU do
   end
 
   defp do_save(file, definition) do
-    traverse(definition.versions(), fn version ->
+    collection_traverser =
+      Application.get_env(
+        :ivcu,
+        :collection_traverser,
+        @default_collection_traverser
+      )
+
+    collection_traverser.traverse(definition.versions(), fn version ->
       new_filename = definition.filename(version, file.filename)
 
       with {:ok, converted} <-
@@ -82,7 +91,14 @@ defmodule IVCU do
   end
 
   defp do_delete(file, definition) do
-    traverse(definition.versions(), fn version ->
+    collection_traverser =
+      Application.get_env(
+        :ivcu,
+        :collection_traverser,
+        @default_collection_traverser
+      )
+
+    collection_traverser.traverse(definition.versions(), fn version ->
       filename = definition.filename(version, file.filename)
 
       with :ok <- definition.storage().delete(%{file | filename: filename}) do
@@ -104,20 +120,6 @@ defmodule IVCU do
     for version <- definition.versions(), into: %{} do
       filename = definition.filename(version, file.filename)
       {version, definition.storage().url(%{file | filename: filename})}
-    end
-  end
-
-  defp traverse(enum, fun) when is_function(fun, 1) do
-    result =
-      Enum.reduce(enum, {:ok, []}, fn x, macc ->
-        with {:ok, acc} <- macc,
-             {:ok, y} <- fun.(x) do
-          {:ok, [y | acc]}
-        end
-      end)
-
-    with {:ok, reversed} <- result do
-      {:ok, Enum.reverse(reversed)}
     end
   end
 end

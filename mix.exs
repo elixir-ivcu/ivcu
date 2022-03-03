@@ -35,7 +35,12 @@ defmodule IVCU.MixProject do
       ],
       groups_for_modules: [
         Utils: [IVCU.Converter.CMD, IVCU.Storage.Local],
-        Internal: [IVCU.Converter, IVCU.Storage],
+        Internal: [
+          IVCU.Converter,
+          IVCU.Storage,
+          IVCU.CollectionTraverser,
+          IVCU.CollectionTraverser.SyncTraverser
+        ],
         Errors: [
           IVCU.Converter.CMD.InvalidFormatError,
           IVCU.Converter.CMD.UnknownVersionError

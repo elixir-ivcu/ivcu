@@ -74,7 +74,9 @@ defmodule IVCU.MixProject do
 
   defp package do
     [
-      links: %{"GitHub" => "https://github.com/elixir-ivcu/ivcu"}
+      links: %{"GitHub" => "https://github.com/elixir-ivcu/ivcu"},
+      licenses: ["Apache-2.0"],
+      files: ~w[mix.exs LICENSE README.md lib guides]
     ]
   end
 end

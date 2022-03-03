@@ -61,7 +61,7 @@ defmodule IVCUTest do
 
     def filename(version, filename) do
       extname = Path.extname(filename)
-      base = filename |> String.replace(extname, "")
+      base = String.replace(filename, extname, "")
       "#{base}_#{version}#{extname}"
     end
   end

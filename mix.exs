@@ -18,7 +18,11 @@ defmodule IVCU.MixProject do
 
       # Docs.
       name: "IVCU",
-      docs: docs()
+      docs: docs(),
+
+      # Package.
+      description: description(),
+      package: package()
     ]
   end
 
@@ -40,6 +44,8 @@ defmodule IVCU.MixProject do
 
   defp docs do
     [
+      source_url: "https://github.com/elixir-ivcu/ivcu",
+      source_ref: "master",
       extras: [
         "guides/getting_started.md",
         "guides/using_with_ecto.md",
@@ -59,6 +65,16 @@ defmodule IVCU.MixProject do
           IVCU.Converter.CMD.UnknownVersionError
         ]
       ]
+    ]
+  end
+
+  defp description do
+    "A library to validate, convert, and upload images."
+  end
+
+  defp package do
+    [
+      links: %{"GitHub" => "https://github.com/elixir-ivcu/ivcu"}
     ]
   end
 end

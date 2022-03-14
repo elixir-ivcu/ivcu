@@ -58,7 +58,7 @@ defmodule IVCU do
       )
 
     collection_traverser.traverse(definition.versions(), fn version ->
-      new_filename = definition.filename(version, file.filename)
+      new_filename = definition.filename(version, file)
 
       with {:ok, converted} <-
              definition.converter().convert(file, version, new_filename),
@@ -99,7 +99,7 @@ defmodule IVCU do
       )
 
     collection_traverser.traverse(definition.versions(), fn version ->
-      filename = definition.filename(version, file.filename)
+      filename = definition.filename(version, file)
 
       with :ok <- definition.storage().delete(%{file | filename: filename}) do
         {:ok, nil}
@@ -118,7 +118,7 @@ defmodule IVCU do
   @spec urls(File.t(), module) :: %{required(atom) => url} when url: String.t()
   def urls(file, definition) when is_atom(definition) do
     for version <- definition.versions(), into: %{} do
-      filename = definition.filename(version, file.filename)
+      filename = definition.filename(version, file)
       {version, definition.storage().url(%{file | filename: filename})}
     end
   end

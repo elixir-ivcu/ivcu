@@ -75,5 +75,5 @@ defmodule IVCU.Definition do
   @doc """
   Get a new filename for the provided version.
   """
-  @callback filename(version, String.t()) :: String.t()
+  @callback filename(version, File.t()) :: String.t()
 end
